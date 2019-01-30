@@ -20,11 +20,14 @@ const users = require('./routes/users');
 // passport config
 require('./config/passport')(passport);
 
+//env variables
+require('dotenv').config();
+
 // db config
 const db = require('./config/database');
 
 // connect to mongoose
-mongoose.connect(db.mongoURI).then(() => {
+mongoose.connect(`mongodb://${db.connections.mongodb.host}/${db.connections.mongodb.database}`).then(() => {
     console.log('MongoDB connected...');
 }).catch(err => {
     console.log(err);
